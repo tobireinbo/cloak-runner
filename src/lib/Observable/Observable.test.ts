@@ -1,6 +1,6 @@
-import Observer from ".";
+import Observable from ".";
 
-const observer = new Observer<string>("first");
+const observer = new Observable<string>("first");
 let subscribedValue: string | undefined;
 
 test("data", () => {
@@ -12,19 +12,25 @@ test("subscription", () => {
 
   expect(subscribedValue).toBe(undefined);
 
-  observer.setData("second");
+  observer.broadcast("second");
 
   expect(subscribedValue).toBe("second");
 });
 
 test("undetected", () => {
   observer.subscribe((data) => (subscribedValue = data));
-  observer.setDataUndetected("third");
+  observer.set("third");
 
   expect(subscribedValue).toBe("second");
   expect(observer.data).toBe("third");
 
-  observer.setData("fourth");
+  observer.set("fourth").broadcast();
 
   expect(subscribedValue).toBe("fourth");
+});
+
+test("increment prev", () => {
+  const numberObserver = new Observable(0);
+  numberObserver.set((prev) => prev + 1);
+  expect(numberObserver.data).toBe(1);
 });
