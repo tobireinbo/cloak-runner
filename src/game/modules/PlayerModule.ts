@@ -11,8 +11,11 @@ class PlayerModule extends Module {
 
   Define(entityManager: EntityManager): void {
     const entity = new Entity("Player");
+
     entity.AddObservable("position", new Observable(new Vector3()));
     entity.AddObservable("rotation", new Observable(new Quaternion()));
+
+    entityManager.AddEntity(entity);
   }
 }
 

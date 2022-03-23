@@ -58,9 +58,9 @@ class Observable<T> {
    * is new data provided then it will be updated first and broadcast
    * @returns
    */
-  broadcast(data?: T) {
+  broadcast(data?: ObservableSetter<T>) {
     if (data) {
-      this._data = data;
+      this.set(data);
     }
     this._updateSubscriptions();
     return this;

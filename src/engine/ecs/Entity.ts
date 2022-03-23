@@ -5,7 +5,7 @@ import Observable from "src/lib/Observable";
 class Entity {
   private _entityManager?: EntityManager;
   private _name: string;
-  private _components: Map<string, Component>;
+  private _components: Map<string, any>;
   private _observables: Map<string, Observable<any>>;
 
   constructor(name: string) {
@@ -26,14 +26,14 @@ class Entity {
     this._entityManager = em;
   }
 
-  public AddComponent(component: Component) {
+  public AddComponent(component: Component, customName?: string) {
     component.SetEntity(this);
-    this._components.set(component.constructor.name, component);
+    this._components.set(customName ?? component.constructor.name, component);
     component.OnAdd();
     return this;
   }
 
-  public GetComponent(name: string) {
+  public GetComponent<T extends Component>(name: string): T | undefined {
     return this._components.get(name);
   }
 
@@ -54,7 +54,7 @@ class Entity {
     return this;
   }
 
-  public GetObservable(name: string) {
+  public GetObservable<T>(name: string): Observable<T> | undefined {
     return this._observables.get(name);
   }
 
