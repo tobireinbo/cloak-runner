@@ -1,16 +1,27 @@
 import EntityManager from "src/engine/ecs/EntityManager";
+import Observable from "src/lib/Observable";
 import Module from "./Module";
 
+enum GameStates {
+  MENU = "menu",
+  LOBBY = "lobby",
+  MATCH_START = "match_start",
+  MATCH_PROGRESS = "match_progress",
+  MATCH_END = "match_end",
+}
 class Game {
   private _prevAnimationFrameTime?: number;
   private _entityManager: EntityManager;
+  public State: Observable<GameStates>;
 
   constructor() {
     this._entityManager = new EntityManager();
+    this.State = new Observable<GameStates>(GameStates.MENU);
     this._init();
   }
 
   public AddModule(module: Module) {
+    module.SetGame(this);
     module.Define(this._entityManager);
     return this;
   }

@@ -5,7 +5,7 @@ import PlayerModule from "./game/modules/PlayerModule";
 
 const gameElement = document.getElementById("game");
 if (gameElement) {
-  new Game()
+  const game = new Game()
     .AddModule(new WorldModule(gameElement))
     .AddModule(new PlayerModule());
 } else {
