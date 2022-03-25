@@ -2,7 +2,7 @@ import EntityManager from "src/engine/ecs/EntityManager";
 import Observable from "src/lib/Observable";
 import Module from "./Module";
 
-enum GameStates {
+export enum GameStates {
   MENU = "menu",
   LOBBY = "lobby",
   MATCH_START = "match_start",
@@ -26,7 +26,9 @@ class Game {
     return this;
   }
 
-  private _init() {}
+  private _init() {
+    this._animate();
+  }
 
   private _animate() {
     requestAnimationFrame((time) => {

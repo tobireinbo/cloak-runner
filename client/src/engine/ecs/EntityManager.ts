@@ -11,6 +11,10 @@ class EntityManager {
     this._entities.set(entity.Name, entity);
   }
 
+  public GetEntity(name: string) {
+    return this._entities.get(name);
+  }
+
   public Update(time: number, delta: number) {
     for (const entity of this._entities) {
       entity[1].Update(time, delta);

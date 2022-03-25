@@ -48,11 +48,12 @@ class ThreeController extends Component {
     //CAMERA
     const fov = 90;
     const aspect = window.innerWidth / window.innerHeight;
-    const near = 1.0;
+    const near = 0.1;
     const far = 1000.0;
 
     this.Camera = new PerspectiveCamera(fov, aspect, near, far);
-    this.Camera.position.set(50, 50, 50);
+    this.Camera.position.set(0, -50, 20);
+    this.Camera.rotateX(Math.PI / 3);
 
     //SCENE
     this.Scene = new Scene();
@@ -63,6 +64,12 @@ class ThreeController extends Component {
     //LIGHTS
     const light = new PointLight(0x8088b3, 0.5);
     light.position.set(0, 200, 0);
+    light.castShadow = true;
+    light.shadow.bias = -0.001;
+    light.shadow.mapSize.width = 4096;
+    light.shadow.mapSize.height = 4096;
+    light.shadow.camera.near = 0.1;
+    light.shadow.camera.far = 10000.0;
     const ambientLight = new AmbientLight(0xffffff, 0.2);
     const hemiLight = new HemisphereLight(0xffffff, 0x444444, 0.8);
     hemiLight.position.set(0, 20, 0);
@@ -84,7 +91,7 @@ class ThreeController extends Component {
     let renderResolution = new Vector2(
       window.innerWidth,
       window.innerHeight
-    ).divideScalar(2);
+    ).divideScalar(1);
 
     this.Composer.addPass(
       new RenderPixelatedPass(renderResolution, this.Scene, this.Camera)

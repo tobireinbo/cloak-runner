@@ -4,14 +4,14 @@ import Module from "src/engine/ecs/Module";
 import ThreeController from "../components/ThreeController";
 
 class WorldModule extends Module {
-  constructor(private root: HTMLElement) {
+  constructor(private _root: HTMLElement) {
     super();
   }
 
   Define(entityManager: EntityManager): void {
     const entity = new Entity("World");
-    entity.AddComponent(new ThreeController(this.root));
     entityManager.AddEntity(entity);
+    entity.AddComponent(new ThreeController(this._root));
   }
 }
 
