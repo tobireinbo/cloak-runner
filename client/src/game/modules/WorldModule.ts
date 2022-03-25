@@ -17,7 +17,7 @@ class WorldModule extends Module {
 
     const ground = new Ground(200);
     entity.AddComponent(ground);
-    threeController.AddRigidBody(ground.Rigid, ground.Body);
+    threeController.AddBody(ground.Body);
   }
 }
 

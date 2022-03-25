@@ -1,6 +1,6 @@
 import Component from "src/engine/ecs/Component";
 import { PerspectiveCamera, Vector3 } from "three";
-import { PlayerProps } from "../modules/PlayerModule";
+import TestCube from "./TestCube";
 
 class BirdCamera extends Component {
   private _lookat?: Vector3;
@@ -14,9 +14,8 @@ class BirdCamera extends Component {
   }
 
   public OnUpdate(time: number): void {
-    const position = this.Entity?.GetObservable<Vector3>(
-      PlayerProps.POSITION
-    )?.data;
+    const position = this.Entity?.GetComponent<TestCube>(TestCube.name)?.Body
+      ?.position;
     const lookat = position;
     const offset = new Vector3(-60, 70, 0);
 

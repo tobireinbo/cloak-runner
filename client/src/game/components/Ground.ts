@@ -5,7 +5,6 @@ import { BoxGeometry, Mesh, MeshPhongMaterial, Vector3 } from "three";
 
 class Ground extends Component {
   public Body?: Mesh;
-  public Rigid?: any;
 
   constructor(private size: number) {
     super();
@@ -26,7 +25,7 @@ class Ground extends Component {
       quat: ground.quaternion,
       size: new Vector3(this.size, 1, this.size),
     });
-    this.Rigid = rigidBody;
+    this.Body.userData.rb = rigidBody;
   }
 }
 

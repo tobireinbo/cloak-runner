@@ -1,5 +1,4 @@
 import Component from "src/engine/ecs/Component";
-import RigidBody from "src/engine/physics/RigidBody";
 import RenderPixelatedPass from "src/engine/three/PixelPass";
 import { AmmoLib } from "src/main";
 
@@ -19,6 +18,7 @@ import {
   Vector3,
   WebGLRenderer,
 } from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 
 class ThreeController extends Component {
@@ -28,6 +28,7 @@ class ThreeController extends Component {
   public Scene?: Scene;
   public Ground?: Mesh;
   public Composer?: EffectComposer;
+  private _controls?: OrbitControls;
 
   private _collisionConfig: any;
   private _dispatcher: any;
@@ -35,7 +36,7 @@ class ThreeController extends Component {
   private _solver: any;
   private _physicsWorld: any;
 
-  public _rigidBodies: Array<{ mesh: Object3D; rigidBody: any }>;
+  public _rigidBodies: Array<Object3D>;
   private _tempTransform: any;
 
   constructor(root: HTMLElement) {
@@ -79,6 +80,8 @@ class ThreeController extends Component {
     this.Camera = new PerspectiveCamera(fov, aspect, near, far);
     this.Camera.position.set(0, -50, 20);
     this.Camera.rotateX(Math.PI / 3);
+
+    this._controls = new OrbitControls(this.Camera, this.Renderer?.domElement);
   }
 
   private _setupScene() {
@@ -113,7 +116,7 @@ class ThreeController extends Component {
     let renderResolution = new Vector2(
       window.innerWidth,
       window.innerHeight
-    ).divideScalar(1);
+    ).divideScalar(2);
 
     this.Composer.addPass(
       new RenderPixelatedPass(renderResolution, this.Scene, this.Camera)
@@ -132,34 +135,34 @@ class ThreeController extends Component {
   public OnUpdate(time: number): void {
     if (this.Renderer && this.Scene && this.Camera) {
       this.Composer?.render();
+      this._controls?.update();
       this._physicsWorld.stepSimulation(time, 10);
 
       for (let i = 0; i < this._rigidBodies.length; i++) {
-        this._rigidBodies[i].rigidBody.MotionState.getWorldTransform(
-          this._tempTransform
-        );
+        const current = this._rigidBodies[i];
+        current.userData.rb.MotionState.getWorldTransform(this._tempTransform);
         const pos = this._tempTransform.getOrigin();
         const quat = this._tempTransform.getRotation();
         const pos3 = new Vector3(pos.x(), pos.y(), pos.z());
         const quat3 = new Quaternion(quat.x(), quat.y(), quat.z(), quat.w());
 
-        this._rigidBodies[i].mesh.position.copy(pos3);
-        this._rigidBodies[i].mesh.quaternion.copy(quat3);
+        current.position.copy(pos3);
+        current.quaternion.copy(quat3);
       }
     }
   }
 
-  public AddObject(object: Object3D) {
-    this.Scene?.add(object);
-  }
-
-  public AddRigidBody(rb?: RigidBody, obj?: Object3D) {
-    if (!obj || !rb) {
+  public AddBody(object?: Object3D) {
+    if (!object) {
       return;
     }
-    this.AddObject(obj);
-    this._physicsWorld.addRigidBody(rb.Body);
-    this._rigidBodies.push({ rigidBody: rb, mesh: obj });
+    const rb = object.userData.rb;
+    if (rb) {
+      this._physicsWorld.addRigidBody(rb.Body);
+    }
+    this.Scene?.add(object);
+
+    this._rigidBodies.push(object);
   }
 }
 

@@ -1,4 +1,5 @@
 import { Quaternion, Vector3 } from "three";
+import { CreateBoxProps } from "./RigidBody.types";
 
 class RigidBody {
   private _transform: any;
@@ -17,12 +18,7 @@ class RigidBody {
     return this._body;
   }
 
-  public CreateBox(params: {
-    mass: number;
-    pos: Vector3;
-    quat: Quaternion;
-    size: Vector3;
-  }): void {
+  public CreateBox(params: CreateBoxProps, kinematic = false): void {
     const { pos, quat, mass, size } = params;
 
     this._transform = new this.AmmoLib.btTransform();
@@ -53,6 +49,13 @@ class RigidBody {
       this._inertia
     );
     this._body = new this.AmmoLib.btRigidBody(this._info);
+    this._body.setFriction(4);
+    this._body.setRollingFriction(10);
+    this._body.setActivationState(4);
+
+    if (kinematic) {
+      this._body.setCollisionFlags(2);
+    }
 
     this.AmmoLib.destroy(btSize);
   }
