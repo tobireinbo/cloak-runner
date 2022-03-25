@@ -36,17 +36,16 @@ class Game {
         this._prevAnimationFrameTime = time;
       }
 
-      const delta = Math.min(
-        1.0 / 60.0,
-        time - this._prevAnimationFrameTime * 0.001
-      );
-
-      this._entityManager.Update(time, delta);
-
-      setTimeout(() => {
-        this._animate();
-      }, 10);
+      this._step(time - this._prevAnimationFrameTime);
+      this._animate();
+      this._prevAnimationFrameTime = time;
     });
+  }
+
+  private _step(timeElapsed: number) {
+    const _timeElapsed = timeElapsed * 0.001;
+
+    this._entityManager.Update(timeElapsed);
   }
 }
 

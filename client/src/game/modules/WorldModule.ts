@@ -1,6 +1,7 @@
 import Entity from "src/engine/ecs/Entity";
 import EntityManager from "src/engine/ecs/EntityManager";
 import Module from "src/engine/ecs/Module";
+import Ground from "../components/Ground";
 import ThreeController from "../components/ThreeController";
 
 class WorldModule extends Module {
@@ -11,7 +12,12 @@ class WorldModule extends Module {
   Define(entityManager: EntityManager): void {
     const entity = new Entity("World");
     entityManager.AddEntity(entity);
-    entity.AddComponent(new ThreeController(this._root));
+    const threeController = new ThreeController(this._root);
+    entity.AddComponent(threeController);
+
+    const ground = new Ground(200);
+    entity.AddComponent(ground);
+    threeController.AddRigidBody(ground.Rigid, ground.Body);
   }
 }
 

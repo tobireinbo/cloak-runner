@@ -14,7 +14,7 @@ class Component {
   }
 
   //define these lifecycle methods when extending this class
-  public OnUpdate(time: number, delta: number) {}
+  public OnUpdate(time: number) {}
   public OnAdd() {}
   public OnDestroy() {}
 }

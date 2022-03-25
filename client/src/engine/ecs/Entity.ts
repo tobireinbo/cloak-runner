@@ -37,9 +37,9 @@ class Entity {
     return this._components.get(name);
   }
 
-  public Update(time: number, delta: number) {
+  public Update(time: number) {
     for (const comp of this._components) {
-      comp[1].OnUpdate(time, delta);
+      comp[1].OnUpdate(time);
     }
   }
 

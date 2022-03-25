@@ -15,9 +15,9 @@ class EntityManager {
     return this._entities.get(name);
   }
 
-  public Update(time: number, delta: number) {
+  public Update(time: number) {
     for (const entity of this._entities) {
-      entity[1].Update(time, delta);
+      entity[1].Update(time);
     }
   }
 

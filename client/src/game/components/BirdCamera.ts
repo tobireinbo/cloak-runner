@@ -2,7 +2,7 @@ import Component from "src/engine/ecs/Component";
 import { PerspectiveCamera, Vector3 } from "three";
 import { PlayerProps } from "../modules/PlayerModule";
 
-class BirdCameraComponent extends Component {
+class BirdCamera extends Component {
   private _lookat?: Vector3;
 
   constructor(private _params: { camera: PerspectiveCamera }) {
@@ -13,7 +13,7 @@ class BirdCameraComponent extends Component {
     this._lookat = new Vector3();
   }
 
-  public OnUpdate(time: number, delta: number): void {
+  public OnUpdate(time: number): void {
     const position = this.Entity?.GetObservable<Vector3>(
       PlayerProps.POSITION
     )?.data;
@@ -32,4 +32,4 @@ class BirdCameraComponent extends Component {
   }
 }
 
-export default BirdCameraComponent;
+export default BirdCamera;

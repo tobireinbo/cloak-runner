@@ -3,8 +3,8 @@ import EntityManager from "src/engine/ecs/EntityManager";
 import Module from "src/engine/ecs/Module";
 import Observable from "src/lib/Observable";
 import { Quaternion, Vector3 } from "three";
-import BirdCameraComponent from "../components/BirdCameraComponent";
-import TestCubeComponent from "../components/TestCubeComponent";
+import BirdCamera from "../components/BirdCamera";
+import TestCube from "../components/TestCube";
 import ThreeController from "../components/ThreeController";
 
 export enum PlayerProps {
@@ -26,7 +26,7 @@ class PlayerModule extends Module {
       new Observable(new Quaternion())
     );
 
-    const testCube = new TestCubeComponent();
+    const testCube = new TestCube();
     entity.AddComponent(testCube);
 
     const worldEntity = entityManager.GetEntity("World");
@@ -36,10 +36,10 @@ class PlayerModule extends Module {
       );
 
       if (threeController) {
-        threeController.AddObject(testCube.Cube);
+        threeController.AddRigidBody(testCube.RigidBody, testCube.Cube);
         if (threeController.Camera) {
           entity.AddComponent(
-            new BirdCameraComponent({ camera: threeController.Camera })
+            new BirdCamera({ camera: threeController.Camera })
           );
         }
       }
