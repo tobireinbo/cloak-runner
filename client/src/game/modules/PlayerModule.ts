@@ -6,6 +6,7 @@ import { Quaternion, Vector3 } from "three";
 import BirdCamera from "../components/BirdCamera";
 import InputController from "../components/InputController";
 import TestCube from "../components/TestCube";
+import ThirdPersonCamera from "../components/ThirdPersonCamera";
 import ThreeController from "../components/ThreeController";
 
 export enum PlayerProps {
@@ -42,6 +43,12 @@ class PlayerModule extends Module {
       if (threeController) {
         threeController.AddBody(testCube.Body);
         if (threeController.Camera) {
+          entity.AddComponent(
+            new ThirdPersonCamera({
+              camera: threeController.Camera,
+              target: testCube.Body,
+            })
+          );
           /*entity.AddComponent(
             new BirdCamera({ camera: threeController.Camera })
           );*/

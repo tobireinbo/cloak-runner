@@ -71,8 +71,8 @@ class TestCube extends Component {
 
     let scalingFactor = 0.3;
 
-    let moveX = inputs.right - inputs.left;
-    let moveZ = inputs.back - inputs.forward;
+    let moveX = inputs.left - inputs.right;
+    let moveZ = inputs.forward - inputs.back;
     let moveY = 0;
 
     let translateFactor = this._tmpPos.set(moveX, moveY, moveZ);

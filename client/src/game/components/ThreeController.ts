@@ -81,7 +81,7 @@ class ThreeController extends Component {
     this.Camera.position.set(0, -50, 20);
     this.Camera.rotateX(Math.PI / 3);
 
-    this._controls = new OrbitControls(this.Camera, this.Renderer?.domElement);
+    //this._controls = new OrbitControls(this.Camera, this.Renderer?.domElement);
   }
 
   private _setupScene() {
