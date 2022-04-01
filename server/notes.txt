@@ -1,0 +1,7 @@
+use peer to peer with this server
+
+https://github.com/peers/peerjs-server
+
+and on the client side
+
+https://github.com/peers/peerjs

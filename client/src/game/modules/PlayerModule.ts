@@ -3,7 +3,6 @@ import EntityManager from "src/engine/ecs/EntityManager";
 import Module from "src/engine/ecs/Module";
 import Observable from "src/lib/Observable";
 import { Quaternion, Vector3 } from "three";
-import BirdCamera from "../components/BirdCamera";
 import InputController from "../components/InputController";
 import TestCube from "../components/TestCube";
 import ThirdPersonCamera from "../components/ThirdPersonCamera";

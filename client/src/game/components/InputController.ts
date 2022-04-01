@@ -44,7 +44,11 @@ class InputController extends Component {
     const centeredX = window.innerWidth / 2 - event.x;
     const centeredY = window.innerHeight / 2 - event.y;
 
+    const normalizedX = centeredX / (window.innerWidth / 2);
+    const normalizedY = centeredY / (window.innerHeight / 2);
+
     this.CenterMousePosition.set(centeredX, centeredY);
+    this.NormalizedCenteredMousePosition.set(normalizedX, normalizedY);
   };
 
   private _handleKeyDown = (event: KeyboardEvent) => {

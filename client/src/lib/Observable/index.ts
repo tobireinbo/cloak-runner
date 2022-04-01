@@ -39,7 +39,7 @@ class Observable<T> {
   }
 
   /**
-   * updates the observable data
+   * updates the observable data without broadcasting it
    * @param data
    * @returns
    */
@@ -55,7 +55,7 @@ class Observable<T> {
   /**
    * broadcasts the observable data to all subscribers
    *
-   * is new data provided then it will be updated first and broadcast
+   * is new data provided then it will be updated first and then broadcasted after
    * @returns
    */
   broadcast(data?: ObservableSetter<T>) {

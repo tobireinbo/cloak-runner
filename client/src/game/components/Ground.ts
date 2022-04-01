@@ -1,8 +1,6 @@
 import Component from "src/engine/ecs/Component";
-import RigidBody from "src/engine/physics/RigidBody";
-import { AmmoLib } from "src/main";
-import { BoxGeometry, Mesh, MeshPhongMaterial, Vector3 } from "three";
-
+import { BoxGeometry, Mesh, MeshPhongMaterial } from "three";
+import * as CANNON from "cannon-es";
 class Ground extends Component {
   public Body?: Mesh;
 
@@ -16,16 +14,14 @@ class Ground extends Component {
       new MeshPhongMaterial({ color: "#102300", depthWrite: false })
     );
     ground.receiveShadow = true;
-    this.Body = ground;
 
-    const rigidBody = new RigidBody(AmmoLib);
-    rigidBody.CreateBox({
-      mass: 0, //makes it float,
-      pos: ground.position,
-      quat: ground.quaternion,
-      size: new Vector3(this.size, 1, this.size),
+    const physicsGround = new CANNON.Body({
+      mass: 0,
+      shape: new CANNON.Box(new CANNON.Vec3(this.size / 2, 1, this.size / 2)),
     });
-    this.Body.userData.rb = rigidBody;
+
+    ground.userData.physicsBody = physicsGround;
+    this.Body = ground;
   }
 }
 

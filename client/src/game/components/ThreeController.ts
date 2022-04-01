@@ -1,6 +1,5 @@
 import Component from "src/engine/ecs/Component";
 import RenderPixelatedPass from "src/engine/three/PixelPass";
-import { AmmoLib } from "src/main";
 
 import {
   AmbientLight,
@@ -11,15 +10,14 @@ import {
   PCFSoftShadowMap,
   PerspectiveCamera,
   PointLight,
-  Quaternion,
   Scene,
   sRGBEncoding,
   Vector2,
-  Vector3,
   WebGLRenderer,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+import * as CANNON from "cannon-es";
 
 class ThreeController extends Component {
   private _root: HTMLElement;
@@ -29,36 +27,20 @@ class ThreeController extends Component {
   public Ground?: Mesh;
   public Composer?: EffectComposer;
   private _controls?: OrbitControls;
-
-  private _collisionConfig: any;
-  private _dispatcher: any;
-  private _broadphase: any;
-  private _solver: any;
-  private _physicsWorld: any;
-
-  public _rigidBodies: Array<Object3D>;
-  private _tempTransform: any;
+  private _physicsWorld?: CANNON.World;
+  private _physicsBodies: Array<Object3D>;
 
   constructor(root: HTMLElement) {
     super();
 
     this._root = root;
-    this._rigidBodies = [];
+    this._physicsBodies = [];
   }
 
   private _setupPhysics() {
-    this._collisionConfig = new AmmoLib.btDefaultCollisionConfiguration();
-    this._dispatcher = new AmmoLib.btCollisionDispatcher(this._collisionConfig);
-    this._broadphase = new AmmoLib.btDbvtBroadphase();
-    this._solver = new AmmoLib.btSequentialImpulseConstraintSolver();
-    this._physicsWorld = new AmmoLib.btDiscreteDynamicsWorld(
-      this._dispatcher,
-      this._broadphase,
-      this._solver,
-      this._collisionConfig
-    );
-    this._physicsWorld.setGravity(new AmmoLib.btVector3(0, -10, 0));
-    this._tempTransform = new AmmoLib.btTransform();
+    this._physicsWorld = new CANNON.World({
+      gravity: new CANNON.Vec3(0, -9.82, 0),
+    });
   }
 
   private _setupRenderer() {
@@ -134,21 +116,17 @@ class ThreeController extends Component {
 
   public OnUpdate(time: number): void {
     if (this.Renderer && this.Scene && this.Camera) {
-      this.Composer?.render();
       this._controls?.update();
-      this._physicsWorld.stepSimulation(time, 10);
+      this._physicsWorld?.fixedStep();
 
-      for (let i = 0; i < this._rigidBodies.length; i++) {
-        const current = this._rigidBodies[i];
-        current.userData.rb.MotionState.getWorldTransform(this._tempTransform);
-        const pos = this._tempTransform.getOrigin();
-        const quat = this._tempTransform.getRotation();
-        const pos3 = new Vector3(pos.x(), pos.y(), pos.z());
-        const quat3 = new Quaternion(quat.x(), quat.y(), quat.z(), quat.w());
-
-        current.position.copy(pos3);
-        current.quaternion.copy(quat3);
+      for (const physicsBody of this._physicsBodies) {
+        physicsBody.position.copy(physicsBody.userData.physicsBody.position);
+        physicsBody.quaternion.copy(
+          physicsBody.userData.physicsBody.quaternion
+        );
       }
+
+      this.Composer?.render();
     }
   }
 
@@ -156,13 +134,12 @@ class ThreeController extends Component {
     if (!object) {
       return;
     }
-    const rb = object.userData.rb;
-    if (rb) {
-      this._physicsWorld.addRigidBody(rb.Body);
+    const physicsBody = object.userData.physicsBody;
+    if (physicsBody) {
+      this._physicsWorld?.addBody(physicsBody);
     }
     this.Scene?.add(object);
-
-    this._rigidBodies.push(object);
+    this._physicsBodies.push(object);
   }
 }
 
