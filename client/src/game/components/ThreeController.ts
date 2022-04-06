@@ -39,7 +39,7 @@ class ThreeController extends Component {
 
   private _setupPhysics() {
     this._physicsWorld = new CANNON.World({
-      gravity: new CANNON.Vec3(0, -9.82, 0),
+      gravity: new CANNON.Vec3(0, -20, 0),
     });
   }
 
@@ -60,8 +60,6 @@ class ThreeController extends Component {
     const near = 0.1;
     const far = 1000.0;
     this.Camera = new PerspectiveCamera(fov, aspect, near, far);
-    this.Camera.position.set(0, -50, 20);
-    this.Camera.rotateX(Math.PI / 3);
 
     //this._controls = new OrbitControls(this.Camera, this.Renderer?.domElement);
   }
@@ -121,9 +119,9 @@ class ThreeController extends Component {
 
       for (const physicsBody of this._physicsBodies) {
         physicsBody.position.copy(physicsBody.userData.physicsBody.position);
-        physicsBody.quaternion.copy(
+        /*physicsBody.quaternion.copy(
           physicsBody.userData.physicsBody.quaternion
-        );
+        );*/
       }
 
       this.Composer?.render();

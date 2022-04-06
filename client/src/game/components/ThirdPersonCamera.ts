@@ -32,8 +32,8 @@ class ThirdPersonCamera extends Component {
       InputController.name
     );
     const idealLookat = new Vector3(
-      inputs?.CenterMousePosition.x,
-      inputs?.CenterMousePosition.y,
+      0, //inputs?.CenterMousePosition.x,
+      0, //inputs?.CenterMousePosition.y,
       20
     );
     idealLookat.applyEuler(this._target.rotation);

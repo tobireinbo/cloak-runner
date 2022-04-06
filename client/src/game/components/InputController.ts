@@ -7,23 +7,21 @@ class InputController extends Component {
     back: 0 | 1;
     left: 0 | 1;
     right: 0 | 1;
+    jump: 0 | 1;
   };
 
   public readonly MousePosition: Vector2;
 
   public readonly CenterMousePosition: Vector2;
 
-  //0 -> screen center
-  //-1 -> completely to left
-  //1 -> completely to right
-  public readonly NormalizedCenteredMousePosition: Vector2;
+  public readonly MouseMovement: Vector2;
 
   constructor() {
     super();
-    this.Keys = { forward: 0, back: 0, left: 0, right: 0 };
+    this.Keys = { forward: 0, back: 0, left: 0, right: 0, jump: 0 };
     this.MousePosition = new Vector2(0, 0);
     this.CenterMousePosition = new Vector2(0, 0);
-    this.NormalizedCenteredMousePosition = new Vector2(0, 0);
+    this.MouseMovement = new Vector2(0, 0);
   }
 
   public OnAdd(): void {
@@ -41,17 +39,16 @@ class InputController extends Component {
   private _handleMouseMove = (event: MouseEvent) => {
     this.MousePosition.set(event.x, event.y);
 
+    this.MouseMovement.set(event.movementX, event.movementY);
+
     const centeredX = window.innerWidth / 2 - event.x;
     const centeredY = window.innerHeight / 2 - event.y;
 
-    const normalizedX = centeredX / (window.innerWidth / 2);
-    const normalizedY = centeredY / (window.innerHeight / 2);
-
     this.CenterMousePosition.set(centeredX, centeredY);
-    this.NormalizedCenteredMousePosition.set(normalizedX, normalizedY);
   };
 
   private _handleKeyDown = (event: KeyboardEvent) => {
+    console.log(event.key);
     switch (event.key) {
       case "w":
         this.Keys.forward = 1;
@@ -64,6 +61,9 @@ class InputController extends Component {
         break;
       case "d":
         this.Keys.right = 1;
+        break;
+      case " ":
+        this.Keys.jump = 1;
         break;
     }
   };
@@ -81,6 +81,9 @@ class InputController extends Component {
         break;
       case "d":
         this.Keys.right = 0;
+        break;
+      case " ":
+        this.Keys.jump = 0;
         break;
     }
   };

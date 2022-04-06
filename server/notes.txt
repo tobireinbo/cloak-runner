@@ -5,3 +5,10 @@ https://github.com/peers/peerjs-server
 and on the client side
 
 https://github.com/peers/peerjs
+
+
+
+or...
+
+nestjs
+https://docs.nestjs.com/recipes/cqrs

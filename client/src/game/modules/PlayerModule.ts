@@ -3,10 +3,12 @@ import EntityManager from "src/engine/ecs/EntityManager";
 import Module from "src/engine/ecs/Module";
 import Observable from "src/lib/Observable";
 import { Quaternion, Vector3 } from "three";
+import FirstPersonPlayer from "../components/FirstPersonPlayer";
 import InputController from "../components/InputController";
 import TestCube from "../components/TestCube";
 import ThirdPersonCamera from "../components/ThirdPersonCamera";
 import ThreeController from "../components/ThreeController";
+import * as CANNON from "cannon-es";
 
 export enum PlayerProps {
   POSITION = "position",
@@ -27,27 +29,28 @@ class PlayerModule extends Module {
       new Observable(new Quaternion())
     );
 
-    const testCube = new TestCube();
-    entity.AddComponent(testCube);
-
     const inputs = new InputController();
     entity.AddComponent(inputs);
 
     const worldEntity = entityManager.GetEntity("World");
-    if (worldEntity && testCube.Body) {
+    if (worldEntity) {
       const threeController = worldEntity.GetComponent<ThreeController>(
         ThreeController.name
       );
 
       if (threeController) {
-        threeController.AddBody(testCube.Body);
         if (threeController.Camera) {
-          entity.AddComponent(
-            new ThirdPersonCamera({
-              camera: threeController.Camera,
-              target: testCube.Body,
-            })
-          );
+          const FPSPlayer = new FirstPersonPlayer({
+            camera: threeController.Camera,
+            body: new CANNON.Body({
+              mass: 5,
+              shape: new CANNON.Sphere(1.3),
+              position: new CANNON.Vec3(0, 10, 0),
+              linearDamping: 0.9,
+            }),
+          });
+          entity.AddComponent(FPSPlayer);
+          threeController.AddBody(FPSPlayer.Object);
           /*entity.AddComponent(
             new BirdCamera({ camera: threeController.Camera })
           );*/

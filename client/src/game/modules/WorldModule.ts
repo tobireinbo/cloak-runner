@@ -2,6 +2,7 @@ import Entity from "src/engine/ecs/Entity";
 import EntityManager from "src/engine/ecs/EntityManager";
 import Module from "src/engine/ecs/Module";
 import Ground from "../components/Ground";
+import TestCube from "../components/TestCube";
 import ThreeController from "../components/ThreeController";
 
 class WorldModule extends Module {
@@ -17,7 +18,11 @@ class WorldModule extends Module {
 
     const ground = new Ground(200);
     entity.AddComponent(ground);
+
+    const cube = new TestCube();
+    entity.AddComponent(cube);
     threeController.AddBody(ground.Body);
+    threeController.AddBody(cube.Body);
   }
 }
 
