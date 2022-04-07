@@ -1,11 +1,11 @@
-import Entity from "src/engine/ecs/Entity";
-import EntityManager from "src/engine/ecs/EntityManager";
-import Module from "src/engine/ecs/Module";
-import Observable from "src/lib/Observable";
+import Entity from "engine/ecs/Entity";
+import EntityManager from "engine/ecs/EntityManager";
+import Module from "engine/ecs/Module";
+import Observable from "lib/Observable";
 import { Quaternion, Vector3 } from "three";
-import FirstPersonPlayer from "../components/FirstPersonPlayer";
-import InputController from "../components/InputController";
-import ThreeController from "../components/ThreeController";
+import FirstPersonPlayer from "game/components/FirstPersonPlayer";
+import InputController from "game/components/InputController";
+import ThreeController from "game/components/ThreeController";
 import * as CANNON from "cannon-es";
 
 export enum PlayerProps {

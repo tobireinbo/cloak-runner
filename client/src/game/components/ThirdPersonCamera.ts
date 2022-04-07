@@ -1,4 +1,4 @@
-import Component from "src/engine/ecs/Component";
+import Component from "engine/ecs/Component";
 import { Object3D, PerspectiveCamera, Vector3 } from "three";
 import InputController from "./InputController";
 

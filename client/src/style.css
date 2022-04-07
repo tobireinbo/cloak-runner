@@ -1,3 +1,6 @@
+:root {
+}
+
 html,
 body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -18,8 +21,6 @@ h6 {
 
 #wrapper {
   height: 100%;
-  width: 100%;
-  overflow: hidden;
 }
 
 #game {
@@ -27,21 +28,4 @@ h6 {
   cursor: none;
   position: absolute;
   inset: 0;
-}
-
-.Menu__container {
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
-.Menu__card {
-  background: gray;
-  border-radius: 10px;
-  padding: 20px;
 }

@@ -1,4 +1,4 @@
-import Component from "src/engine/ecs/Component";
+import Component from "engine/ecs/Component";
 import { PerspectiveCamera, Vector3 } from "three";
 import TestCube from "./TestCube";
 

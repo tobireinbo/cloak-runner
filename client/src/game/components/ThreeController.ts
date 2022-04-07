@@ -1,5 +1,5 @@
-import Component from "src/engine/ecs/Component";
-import RenderPixelatedPass from "src/engine/three/PixelPass";
+import Component from "engine/ecs/Component";
+import RenderPixelatedPass from "engine/three/PixelPass";
 
 import {
   AmbientLight,
@@ -18,7 +18,7 @@ import {
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import * as CANNON from "cannon-es";
-import { GameStates } from "src/engine/ecs/Game";
+import { GameStates } from "engine/ecs/Game";
 
 class ThreeController extends Component {
   private _root: HTMLElement;
@@ -114,6 +114,9 @@ class ThreeController extends Component {
   }
 
   public OnUpdate(time: number): void {
+    if (this.Game?.State.data === GameStates.LOBBY) {
+      return;
+    }
     if (this.Renderer && this.Scene && this.Camera) {
       this._controls?.update();
       this._physicsWorld?.fixedStep();

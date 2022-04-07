@@ -1,4 +1,4 @@
-import Component from "src/engine/ecs/Component";
+import Component from "engine/ecs/Component";
 import { BoxGeometry, Mesh, MeshPhongMaterial } from "three";
 import * as CANNON from "cannon-es";
 class Ground extends Component {

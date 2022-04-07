@@ -9,6 +9,10 @@ class Component {
     return this._entity;
   }
 
+  public get Game() {
+    return this._entity?.EntityManager?.Game;
+  }
+
   public SetEntity(entity: Entity) {
     this._entity = entity;
   }

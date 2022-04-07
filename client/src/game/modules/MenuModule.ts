@@ -1,6 +1,6 @@
-import Entity from "src/engine/ecs/Entity";
-import EntityManager from "src/engine/ecs/EntityManager";
-import Module from "src/engine/ecs/Module";
+import Entity from "engine/ecs/Entity";
+import EntityManager from "engine/ecs/EntityManager";
+import Module from "engine/ecs/Module";
 import InputController from "../components/InputController";
 import Menu from "../components/Menu";
 

@@ -1,4 +1,4 @@
-import Component from "src/engine/ecs/Component";
+import Component from "engine/ecs/Component";
 import { Vector2 } from "three";
 
 class InputController extends Component {

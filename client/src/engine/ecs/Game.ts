@@ -1,5 +1,5 @@
-import EntityManager from "src/engine/ecs/EntityManager";
-import Observable from "src/lib/Observable";
+import EntityManager from "engine/ecs/EntityManager";
+import Observable from "lib/Observable";
 import Module from "./Module";
 
 export enum GameStates {
@@ -17,7 +17,7 @@ class Game {
   constructor() {
     this._entityManager = new EntityManager();
     this._entityManager.SetGame(this);
-    this.State = new Observable<GameStates>(GameStates.MENU);
+    this.State = new Observable<GameStates>(GameStates.LOBBY);
     this._init();
   }
 

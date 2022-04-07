@@ -1,8 +1,7 @@
-import type { UserConfig } from "vite";
+import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import react from "@vitejs/plugin-react";
 
-const config: UserConfig = {
-  plugins: [tsconfigPaths()],
-};
-
-export default config;
+export default defineConfig({
+  plugins: [react(), tsconfigPaths()],
+});

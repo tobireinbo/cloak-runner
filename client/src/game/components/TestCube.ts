@@ -1,10 +1,10 @@
-import Component from "src/engine/ecs/Component";
+import Component from "engine/ecs/Component";
 import { BoxGeometry, Mesh, MeshPhongMaterial, Object3D } from "three";
 import * as CANNON from "cannon-es";
 import {
   threeQuatToCannonQuat,
   threeVec3ToCannonVec3,
-} from "src/engine/physics/helper/translators";
+} from "engine/physics/helper/translators";
 class TestCube extends Component {
   public Body?: Object3D;
   constructor() {

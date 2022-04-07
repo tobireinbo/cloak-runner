@@ -1,5 +1,5 @@
-import Component from "src/engine/ecs/Component";
-import Game, { GameStates } from "src/engine/ecs/Game";
+import Component from "engine/ecs/Component";
+import Game, { GameStates } from "engine/ecs/Game";
 import InputController from "./InputController";
 
 class Menu extends Component {

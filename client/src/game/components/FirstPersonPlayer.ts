@@ -2,12 +2,12 @@
     https://github.com/pmndrs/cannon-es/blob/master/examples/js/PointerLockControlsCannon.js
 */
 
-import Component from "src/engine/ecs/Component";
+import Component from "engine/ecs/Component";
 import { Euler, Object3D, PerspectiveCamera, Quaternion, Vector3 } from "three";
 import * as CANNON from "cannon-es";
 import InputController from "./InputController";
-import { cannonVec3ToThreeVec3 } from "src/engine/physics/helper/translators";
-import { GameStates } from "src/engine/ecs/Game";
+import { cannonVec3ToThreeVec3 } from "engine/physics/helper/translators";
+import { GameStates } from "engine/ecs/Game";
 
 class FirstPersonPlayer extends Component {
   private _enabled = false;

@@ -1,6 +1,6 @@
 import Component from "./Component";
 import EntityManager from "./EntityManager";
-import Observable from "src/lib/Observable";
+import Observable from "lib/Observable";
 
 class Entity {
   private _entityManager?: EntityManager;

@@ -1,4 +1,4 @@
-import Component from "src/engine/ecs/Component";
+import Component from "engine/ecs/Component";
 
 class BasicCharacterController extends Component {
   constructor() {
