@@ -59,10 +59,13 @@ class Observable<T> {
    * @returns
    */
   broadcast(data?: ObservableSetter<T>) {
+    const hasChanged = this._data !== data;
     if (data) {
       this.set(data);
     }
-    this._updateSubscriptions();
+    if (hasChanged) {
+      this._updateSubscriptions();
+    }
     return this;
   }
 

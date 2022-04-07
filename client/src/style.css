@@ -6,3 +6,42 @@ body {
   margin: 0;
   height: 100%;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+#wrapper {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+#game {
+  z-index: 0;
+  cursor: none;
+  position: absolute;
+  inset: 0;
+}
+
+.Menu__container {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.Menu__card {
+  background: gray;
+  border-radius: 10px;
+  padding: 20px;
+}

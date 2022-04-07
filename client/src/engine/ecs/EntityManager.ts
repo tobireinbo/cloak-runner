@@ -1,13 +1,24 @@
 import Entity from "./Entity";
+import Game from "./Game";
 
 class EntityManager {
   private _entities: Map<string, Entity>;
+  private _game?: Game;
 
   constructor() {
     this._entities = new Map();
   }
 
+  public get Game() {
+    return this._game;
+  }
+
+  public SetGame(game: Game) {
+    this._game = game;
+  }
+
   public AddEntity(entity: Entity) {
+    entity.SetEntityManager(this);
     this._entities.set(entity.Name, entity);
   }
 

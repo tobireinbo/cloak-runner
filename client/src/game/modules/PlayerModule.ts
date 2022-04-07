@@ -5,8 +5,6 @@ import Observable from "src/lib/Observable";
 import { Quaternion, Vector3 } from "three";
 import FirstPersonPlayer from "../components/FirstPersonPlayer";
 import InputController from "../components/InputController";
-import TestCube from "../components/TestCube";
-import ThirdPersonCamera from "../components/ThirdPersonCamera";
 import ThreeController from "../components/ThreeController";
 import * as CANNON from "cannon-es";
 
@@ -15,10 +13,6 @@ export enum PlayerProps {
   ROTATION = "rotation",
 }
 class PlayerModule extends Module {
-  constructor() {
-    super();
-  }
-
   Define(entityManager: EntityManager): void {
     const entity = new Entity("Player");
     entityManager.AddEntity(entity);
@@ -43,17 +37,14 @@ class PlayerModule extends Module {
           const FPSPlayer = new FirstPersonPlayer({
             camera: threeController.Camera,
             body: new CANNON.Body({
-              mass: 5,
+              mass: 10,
               shape: new CANNON.Sphere(1.3),
-              position: new CANNON.Vec3(0, 10, 0),
+              position: new CANNON.Vec3(0, 3, 0),
               linearDamping: 0.9,
             }),
           });
           entity.AddComponent(FPSPlayer);
           threeController.AddBody(FPSPlayer.Object);
-          /*entity.AddComponent(
-            new BirdCamera({ camera: threeController.Camera })
-          );*/
         }
       }
     }

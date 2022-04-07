@@ -18,6 +18,7 @@ import {
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import * as CANNON from "cannon-es";
+import { GameStates } from "src/engine/ecs/Game";
 
 class ThreeController extends Component {
   private _root: HTMLElement;
@@ -96,7 +97,7 @@ class ThreeController extends Component {
     let renderResolution = new Vector2(
       window.innerWidth,
       window.innerHeight
-    ).divideScalar(2);
+    ).divideScalar(1);
 
     this.Composer.addPass(
       new RenderPixelatedPass(renderResolution, this.Scene, this.Camera)

@@ -7,9 +7,11 @@ import { Euler, Object3D, PerspectiveCamera, Quaternion, Vector3 } from "three";
 import * as CANNON from "cannon-es";
 import InputController from "./InputController";
 import { cannonVec3ToThreeVec3 } from "src/engine/physics/helper/translators";
+import { GameStates } from "src/engine/ecs/Game";
 
 class FirstPersonPlayer extends Component {
-  private _velFactor = 0.2;
+  private _enabled = false;
+  private _velFactor = 0.1;
   private _jumpVel = 20;
   private _pitchObject = new Object3D();
   private _yawObject = new Object3D();
@@ -20,6 +22,7 @@ class FirstPersonPlayer extends Component {
   private _inputVelocity = new Vector3();
   private _euler = new Euler();
   private _canJump = false;
+  private _isLocked = false;
 
   constructor(
     public args: {
@@ -37,6 +40,19 @@ class FirstPersonPlayer extends Component {
   }
 
   public OnAdd(): void {
+    const gameState = this.Entity?.EntityManager?.Game?.State;
+    if (gameState?.data === GameStates.MATCH_PROGRESS) {
+      this._enabled = true;
+    }
+    gameState?.subscribe((state) => {
+      console.log(state);
+      if (state === GameStates.MATCH_PROGRESS) {
+        this._enabled = true;
+      } else {
+        this._enabled = false;
+      }
+    });
+
     this._pitchObject.add(this.args.camera);
     this._yawObject.position.y = 2;
     this._yawObject.add(this._pitchObject);
@@ -55,13 +71,24 @@ class FirstPersonPlayer extends Component {
     });
 
     document.addEventListener("mousemove", this._onMouseMove);
+    document.addEventListener("pointerlockchange", this._onPointerlockChange);
+    document.addEventListener("pointerlockerror", this._onPointerlockError);
   }
 
   public OnDestroy(): void {
     document.removeEventListener("mousemove", this._onMouseMove);
+    document.removeEventListener(
+      "pointerlockchange",
+      this._onPointerlockChange
+    );
+    document.removeEventListener("pointerlockerror", this._onPointerlockError);
   }
 
   public OnUpdate(time: number): void {
+    if (!this._enabled) {
+      return;
+    }
+
     const inputs = this.Entity?.GetComponent<InputController>(
       InputController.name
     );
@@ -106,6 +133,10 @@ class FirstPersonPlayer extends Component {
   }
 
   private _onMouseMove = (event: MouseEvent) => {
+    if (!this._enabled) {
+      return;
+    }
+
     const { movementX, movementY } = event;
     this._yawObject.rotation.y -= movementX * 0.002;
     this._pitchObject.rotation.x -= movementY * 0.002;
@@ -114,6 +145,18 @@ class FirstPersonPlayer extends Component {
       -Math.PI / 2,
       Math.min(Math.PI / 2, this._pitchObject.rotation.x)
     );
+  };
+
+  private _onPointerlockChange = () => {
+    if (document.pointerLockElement) {
+      this._isLocked = true;
+    } else {
+      this._isLocked = false;
+    }
+  };
+
+  private _onPointerlockError = () => {
+    console.error("Unable to use Pointer Lock API");
   };
 }
 

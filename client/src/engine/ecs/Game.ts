@@ -16,6 +16,7 @@ class Game {
 
   constructor() {
     this._entityManager = new EntityManager();
+    this._entityManager.SetGame(this);
     this.State = new Observable<GameStates>(GameStates.MENU);
     this._init();
   }
@@ -43,8 +44,6 @@ class Game {
   }
 
   private _step(timeElapsed: number) {
-    const _timeElapsed = timeElapsed * 0.001;
-
     this._entityManager.Update(timeElapsed);
   }
 }
