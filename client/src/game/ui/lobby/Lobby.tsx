@@ -1,27 +1,27 @@
 import Game, { GameStates } from "engine/ecs/Game";
-import { useGame } from "../contexts/game.context";
+import { useGame } from "../GameContext";
+import HealthBar from "../hud/HealthBar";
+import Button from "../shared/Button";
+import "./Lobby.css";
 
 const Lobby: React.FC = () => {
   const { state, setState } = useGame();
 
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        position: "absolute",
-        inset: 0,
-        zIndex: 1,
-      }}
-    >
-      <h1>Lobby</h1>
-      <button
-        onClick={() => {
-          setState(GameStates.MATCH_PROGRESS);
-        }}
-      >
-        start
-      </button>
+    <div className="Lobby__wrapper">
+      <div className="Lobby__card">
+        <h1>CLOAK RUNNER</h1>
+        <Button
+          onClick={() => {
+            setState(GameStates.MATCH_PROGRESS);
+          }}
+        >
+          host a game
+        </Button>
+        <Button>join a game</Button>
+        <Button>settings</Button>
+        <HealthBar value={50} max={100} />
+      </div>
     </div>
   );
 };

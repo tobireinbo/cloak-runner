@@ -22,9 +22,13 @@ class Observable<T> {
    * @param action
    * @returns
    */
-  subscribe(action: ObservableAction<T>) {
+  subscribe(action: ObservableAction<T>, directlyFire = false) {
     const key = v4();
     this._subscriptions.set(key, action);
+
+    if (directlyFire) {
+      action(this.data);
+    }
 
     const resubscribe = () => {
       this.subscribe(action);

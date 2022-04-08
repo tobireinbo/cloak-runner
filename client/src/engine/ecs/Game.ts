@@ -21,6 +21,10 @@ class Game {
     this._init();
   }
 
+  public get EntityManager() {
+    return this._entityManager;
+  }
+
   public AddModule(module: Module) {
     module.SetGame(this);
     module.Define(this._entityManager);

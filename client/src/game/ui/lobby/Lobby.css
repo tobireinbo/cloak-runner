@@ -1,0 +1,21 @@
+.Lobby__wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-black);
+}
+
+.Lobby__card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: var(--color-white);
+}
+
+.Lobby__card > * + * {
+  margin-top: var(--space-s);
+}

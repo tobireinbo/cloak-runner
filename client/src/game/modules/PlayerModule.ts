@@ -2,7 +2,6 @@ import Entity from "engine/ecs/Entity";
 import EntityManager from "engine/ecs/EntityManager";
 import Module from "engine/ecs/Module";
 import Observable from "lib/Observable";
-import { Quaternion, Vector3 } from "three";
 import FirstPersonPlayer from "game/components/FirstPersonPlayer";
 import InputController from "game/components/InputController";
 import ThreeController from "game/components/ThreeController";
@@ -17,11 +16,7 @@ class PlayerModule extends Module {
     const entity = new Entity("Player");
     entityManager.AddEntity(entity);
 
-    entity.AddObservable(PlayerProps.POSITION, new Observable(new Vector3()));
-    entity.AddObservable(
-      PlayerProps.ROTATION,
-      new Observable(new Quaternion())
-    );
+    entity.AddObservable("health", new Observable(50));
 
     const inputs = new InputController();
     entity.AddComponent(inputs);

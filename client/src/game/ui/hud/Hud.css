@@ -1,0 +1,9 @@
+.Hud {
+}
+
+.Hud__stats {
+  position: fixed;
+  z-index: 1;
+  bottom: var(--space-m);
+  left: var(--space-m);
+}

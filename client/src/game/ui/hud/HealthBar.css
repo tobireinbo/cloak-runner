@@ -1,0 +1,17 @@
+.HealthBar[value] {
+  -webkit-appearance: none;
+  appearance: none;
+  outline: solid 1px var(--color-gray);
+  height: var(--dimension-s);
+}
+
+.HealthBar[value]::-webkit-progress-bar {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.HealthBar[value]::-webkit-progress-value {
+  background-color: var(--color-red);
+  opacity: 0.9;
+  border-right: 2px solid var(--color-white);
+  box-shadow: inset 0px 1px 5px rgb(255, 131, 131);
+}

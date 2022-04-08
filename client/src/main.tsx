@@ -1,10 +1,7 @@
 import "./style.css";
-import Game from "engine/ecs/Game";
-import WorldModule from "game/modules/WorldModule";
-import PlayerModule from "./game/modules/PlayerModule";
 import React from "react";
 import ReactDOM from "react-dom";
-import { GameProvider } from "game/ui/contexts/game.context";
+import { GameProvider } from "game/ui/GameContext";
 
 ReactDOM.render(
   <React.StrictMode>

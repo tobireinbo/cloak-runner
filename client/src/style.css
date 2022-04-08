@@ -1,13 +1,35 @@
 :root {
+  --text-s: 20px;
+  --text-m: 30px;
+  --text-l: 40px;
+
+  --color-brown: #332121;
+  --color-gold: gold;
+  --color-white: white;
+  --color-black: black;
+  --color-gray: rgb(40, 40, 40);
+  --color-red: rgb(200, 50, 57);
+
+  --space-s: 10px;
+  --space-m: 20px;
+  --space-l: 40px;
+
+  --dimension-s: 20px;
+  --dimension-m: 40px;
+  --dimension-l: 80px;
 }
 
 html,
 body {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "BIZ UDMincho", Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
   height: 100%;
+}
+
+* {
+  font-family: "BIZ UDMincho", Avenir, Helvetica, Arial, sans-serif;
 }
 
 h1,
@@ -17,6 +39,18 @@ h4,
 h5,
 h6 {
   margin: 0;
+}
+
+h1 {
+  font-size: var(--text-l);
+}
+
+h2 {
+  font-size: var(--text-m);
+}
+
+h3 {
+  font-size: var(--text-s);
 }
 
 #wrapper {
