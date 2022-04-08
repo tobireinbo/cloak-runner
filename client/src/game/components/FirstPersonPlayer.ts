@@ -12,7 +12,7 @@ import { GameStates } from "engine/ecs/Game";
 class FirstPersonPlayer extends Component {
   private _enabled = false;
   private _velFactor = 0.1;
-  private _jumpVel = 20;
+  private _jumpVel = 40;
   private _pitchObject = new Object3D();
   private _yawObject = new Object3D();
   private _quat = new Quaternion();

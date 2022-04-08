@@ -34,7 +34,7 @@ class PlayerModule extends Module {
             body: new CANNON.Body({
               mass: 10,
               shape: new CANNON.Sphere(1.3),
-              position: new CANNON.Vec3(0, 3, 0),
+              position: new CANNON.Vec3(0, 3, -10),
               linearDamping: 0.9,
             }),
           });

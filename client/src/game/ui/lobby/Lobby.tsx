@@ -20,7 +20,6 @@ const Lobby: React.FC = () => {
         </Button>
         <Button>join a game</Button>
         <Button>settings</Button>
-        <HealthBar value={50} max={100} />
       </div>
     </div>
   );

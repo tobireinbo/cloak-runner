@@ -11,8 +11,9 @@ class Ground extends Component {
   public OnAdd(): void {
     const ground = new Mesh(
       new BoxGeometry(this.size, 1, this.size),
-      new MeshPhongMaterial({ color: "#332121", depthWrite: false })
+      new MeshPhongMaterial({ color: "#332121" })
     );
+
     ground.receiveShadow = true;
 
     const physicsGround = new CANNON.Body({

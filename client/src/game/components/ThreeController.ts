@@ -17,6 +17,7 @@ import {
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
 import * as CANNON from "cannon-es";
 import { GameStates } from "engine/ecs/Game";
 
@@ -94,6 +95,7 @@ class ThreeController extends Component {
       return;
     }
     this.Composer = new EffectComposer(this.Renderer);
+    //this.Composer.addPass(new RenderPass(this.Scene, this.Camera));
     let renderResolution = new Vector2(
       window.innerWidth,
       window.innerHeight
@@ -104,6 +106,17 @@ class ThreeController extends Component {
     );
   }
 
+  private _onResize = () => {
+    if (!this.Camera || !this.Composer || !this.Renderer) {
+      return;
+    }
+    this.Camera.aspect = window.innerWidth / window.innerHeight;
+    this.Camera.updateProjectionMatrix();
+
+    this.Renderer.setSize(window.innerWidth, window.innerHeight);
+    this.Composer.setSize(window.innerWidth, window.innerHeight);
+  };
+
   public OnAdd(): void {
     this._setupPhysics();
     this._setupRenderer();
@@ -111,6 +124,8 @@ class ThreeController extends Component {
     this._setupScene();
     this._setupLights();
     this._SetupEffects();
+
+    window.addEventListener("resize", this._onResize);
   }
 
   public OnUpdate(time: number): void {

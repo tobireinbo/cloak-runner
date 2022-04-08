@@ -18,4 +18,5 @@
 
 .Lobby__card > * + * {
   margin-top: var(--space-s);
+  width: 100%;
 }
