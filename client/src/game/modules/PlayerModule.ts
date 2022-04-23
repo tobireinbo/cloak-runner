@@ -2,10 +2,9 @@ import Entity from "engine/ecs/Entity";
 import EntityManager from "engine/ecs/EntityManager";
 import Module from "engine/ecs/Module";
 import Observable from "lib/Observable";
-import FirstPersonPlayer from "game/components/FirstPersonPlayer";
 import InputController from "game/components/InputController";
 import ThreeController from "game/components/ThreeController";
-import * as CANNON from "cannon-es";
+import BasicCharacter from "game/components/BasicCharacter";
 
 export enum PlayerProps {
   POSITION = "position",
@@ -27,20 +26,13 @@ class PlayerModule extends Module {
         ThreeController.name
       );
 
-      if (threeController) {
-        if (threeController.Camera) {
-          const FPSPlayer = new FirstPersonPlayer({
-            camera: threeController.Camera,
-            body: new CANNON.Body({
-              mass: 10,
-              shape: new CANNON.Sphere(1.3),
-              position: new CANNON.Vec3(0, 3, -10),
-              linearDamping: 0.9,
-            }),
-          });
-          entity.AddComponent(FPSPlayer);
-          threeController.AddBody(FPSPlayer.Object);
-        }
+      if (threeController && threeController.Camera) {
+        const char = new BasicCharacter({
+          octree: threeController.Octree,
+          inputs,
+          camera: threeController.Camera,
+        });
+        entity.AddComponent(char);
       }
     }
   }

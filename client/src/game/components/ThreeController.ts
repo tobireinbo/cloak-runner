@@ -15,11 +15,11 @@ import {
   Vector2,
   WebGLRenderer,
 } from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
 import * as CANNON from "cannon-es";
 import { GameStates } from "engine/ecs/Game";
+import { Octree } from "three/examples/jsm/math/Octree";
 
 class ThreeController extends Component {
   private _root: HTMLElement;
@@ -28,15 +28,16 @@ class ThreeController extends Component {
   public Scene?: Scene;
   public Ground?: Mesh;
   public Composer?: EffectComposer;
-  private _controls?: OrbitControls;
   private _physicsWorld?: CANNON.World;
   private _physicsBodies: Array<Object3D>;
+  public Octree: Octree;
 
   constructor(root: HTMLElement) {
     super();
 
     this._root = root;
     this._physicsBodies = [];
+    this.Octree = new Octree();
   }
 
   private _setupPhysics() {
@@ -62,8 +63,7 @@ class ThreeController extends Component {
     const near = 0.1;
     const far = 1000.0;
     this.Camera = new PerspectiveCamera(fov, aspect, near, far);
-
-    //this._controls = new OrbitControls(this.Camera, this.Renderer?.domElement);
+    this.Camera.rotation.order = "YXZ";
   }
 
   private _setupScene() {
@@ -118,7 +118,7 @@ class ThreeController extends Component {
   };
 
   public OnAdd(): void {
-    this._setupPhysics();
+    //this._setupPhysics();
     this._setupRenderer();
     this._setupCamera();
     this._setupScene();
@@ -133,7 +133,6 @@ class ThreeController extends Component {
       return;
     }
     if (this.Renderer && this.Scene && this.Camera) {
-      this._controls?.update();
       this._physicsWorld?.fixedStep();
 
       for (const physicsBody of this._physicsBodies) {
@@ -152,11 +151,11 @@ class ThreeController extends Component {
       return;
     }
     const physicsBody = object.userData.physicsBody;
+    this.Scene?.add(object);
     if (physicsBody) {
       this._physicsWorld?.addBody(physicsBody);
+      this._physicsBodies.push(object);
     }
-    this.Scene?.add(object);
-    this._physicsBodies.push(object);
   }
 }
 

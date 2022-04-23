@@ -11,6 +11,7 @@ class InputController extends Component {
     pause: 0 | 1;
     mouseL: 0 | 1;
     mouseR: 0 | 1;
+    shift: 0 | 1;
   };
 
   public readonly MouseMovement: Vector2;
@@ -26,6 +27,7 @@ class InputController extends Component {
       pause: 0,
       mouseL: 0,
       mouseR: 0,
+      shift: 0,
     };
 
     this.MouseMovement = new Vector2(0, 0);
@@ -93,6 +95,9 @@ class InputController extends Component {
       case "Escape":
         this.Keys.pause = 1;
         break;
+      case "Shift":
+        this.Keys.shift = 1;
+        break;
     }
   };
 
@@ -115,6 +120,9 @@ class InputController extends Component {
         break;
       case "Escape":
         this.Keys.pause = 0;
+        break;
+      case "Shift":
+        this.Keys.shift = 0;
         break;
     }
   };

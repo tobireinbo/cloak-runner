@@ -9,6 +9,7 @@
   --color-black: black;
   --color-gray: rgb(40, 40, 40);
   --color-red: rgb(200, 50, 57);
+  --color-blue: rgb(25, 25, 204);
 
   --space-s: 10px;
   --space-m: 20px;
@@ -17,11 +18,16 @@
   --dimension-s: 20px;
   --dimension-m: 40px;
   --dimension-l: 80px;
+
+  --radius-pill: 100px;
+  --radius-s: 10px;
+  --radius-m: 15px;
+  --radius-l: 30px;
 }
 
 html,
 body {
-  font-family: "BIZ UDMincho", Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Kanit", Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
@@ -29,7 +35,7 @@ body {
 }
 
 * {
-  font-family: "BIZ UDMincho", Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Kanit", Avenir, Helvetica, Arial, sans-serif;
 }
 
 h1,

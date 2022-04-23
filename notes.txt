@@ -1,3 +1,21 @@
 move physics to cannon-es
 
 https://www.npmjs.com/package/cannon-es
+
+
+Alternative Idea:
+
+inspiration: sludge life, splatoon, de blob
+
+Multiplayer game (one for all or teams) where players compete by tagging walls with grafiti.
+When Time runs out the player/team with the most tags wins.
+
+Level are also vertical and require a lot of plattforming.
+Try to gain as much velocity as possible to get from place to place faster than the other players
+You can also stun other players for a short duration by throwing your can.
+By throwing your can, you wont be able to spray for a short while if you miss the player, so be careful!
+
+
+Simple Alternative:
+
+Personal Website where people can spray walls and others will see who sprayed it by entered name
