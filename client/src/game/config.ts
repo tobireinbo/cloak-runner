@@ -1,6 +1,6 @@
 export const CONFIG = {
   world: {
-    gravity: 30,
+    gravity: 80,
   },
   player: {
     movementSpeed: {
@@ -9,7 +9,7 @@ export const CONFIG = {
       sprint: 50,
     },
     jump: {
-      velocity: 10,
+      velocity: 50,
     },
   },
 };

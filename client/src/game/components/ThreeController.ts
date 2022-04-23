@@ -5,6 +5,7 @@ import {
   AmbientLight,
   FogExp2,
   HemisphereLight,
+  MathUtils,
   Mesh,
   Object3D,
   PCFSoftShadowMap,
@@ -13,6 +14,7 @@ import {
   Scene,
   sRGBEncoding,
   Vector2,
+  Vector3,
   WebGLRenderer,
 } from "three";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
@@ -20,6 +22,7 @@ import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
 import * as CANNON from "cannon-es";
 import { GameStates } from "engine/ecs/Game";
 import { Octree } from "three/examples/jsm/math/Octree";
+import { Sky } from "three/examples/jsm/objects/Sky";
 
 class ThreeController extends Component {
   private _root: HTMLElement;
@@ -89,7 +92,7 @@ class ThreeController extends Component {
     this.Scene?.add(light);
   }
 
-  private _SetupEffects() {
+  private _setupEffects() {
     if (!this.Renderer || !this.Scene || !this.Camera) {
       console.log("can't setup effects");
       return;
@@ -104,6 +107,42 @@ class ThreeController extends Component {
     this.Composer.addPass(
       new RenderPixelatedPass(renderResolution, this.Scene, this.Camera)
     );
+  }
+
+  private _setupSky() {
+    const sky = new Sky();
+    sky.scale.setScalar(450000);
+    this.Scene?.add(sky);
+
+    const sun = new Vector3();
+
+    /// GUI
+
+    const effectController = {
+      turbidity: 10,
+      rayleigh: 3,
+      mieCoefficient: 0.005,
+      mieDirectionalG: 0.5,
+      elevation: 2,
+      azimuth: 180,
+    };
+
+    function guiChanged() {
+      const uniforms = sky.material.uniforms;
+      uniforms["turbidity"].value = effectController.turbidity;
+      uniforms["rayleigh"].value = effectController.rayleigh;
+      uniforms["mieCoefficient"].value = effectController.mieCoefficient;
+      uniforms["mieDirectionalG"].value = effectController.mieDirectionalG;
+
+      const phi = MathUtils.degToRad(90 - effectController.elevation);
+      const theta = MathUtils.degToRad(effectController.azimuth);
+
+      sun.setFromSphericalCoords(1, phi, theta);
+
+      uniforms["sunPosition"].value.copy(sun);
+    }
+
+    guiChanged();
   }
 
   private _onResize = () => {
@@ -123,7 +162,8 @@ class ThreeController extends Component {
     this._setupCamera();
     this._setupScene();
     this._setupLights();
-    this._SetupEffects();
+    this._setupSky();
+    this._setupEffects();
 
     window.addEventListener("resize", this._onResize);
   }
