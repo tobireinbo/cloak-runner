@@ -4,12 +4,12 @@ export const CONFIG = {
   },
   player: {
     movementSpeed: {
-      onGround: 20,
+      onGround: 50,
       inAir: 10,
-      sprint: 50,
+      sprint: 100,
     },
     jump: {
-      velocity: 50,
+      velocity: 30,
     },
   },
 };

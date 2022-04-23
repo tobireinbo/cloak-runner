@@ -22,7 +22,7 @@ class BasicCharacter extends Component {
 
     this._collider = new Capsule(
       new Vector3(0, 0.35, 0),
-      new Vector3(0, 1, 0),
+      new Vector3(0, 4, 0),
       0.35
     );
     this._velocity = new Vector3();

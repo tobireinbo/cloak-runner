@@ -116,14 +116,16 @@ class ThreeController extends Component {
 
     const sun = new Vector3();
 
-    /// GUI
+    const date = new Date();
+    const hour = date.getHours();
+    const elevation = (hour / 24) * 180;
 
     const effectController = {
       turbidity: 10,
-      rayleigh: 3,
+      rayleigh: 0.7,
       mieCoefficient: 0.005,
-      mieDirectionalG: 0.5,
-      elevation: 2,
+      mieDirectionalG: 0,
+      elevation,
       azimuth: 180,
     };
 
