@@ -71,7 +71,7 @@ class ThreeController extends Component {
 
   private _setupScene() {
     this.Scene = new Scene();
-    this.Scene.fog = new FogExp2(0xefd1b5, 0.0055);
+    this.Scene.fog = new FogExp2(0x000000, 0.0055);
   }
 
   private _setupLights() {
@@ -83,8 +83,8 @@ class ThreeController extends Component {
     light.shadow.mapSize.height = 4096;
     light.shadow.camera.near = 0.1;
     light.shadow.camera.far = 10000.0;
-    const ambientLight = new AmbientLight(0xffffff, 0.2);
-    const hemiLight = new HemisphereLight(0xffffff, 0x444444, 0.8);
+    const ambientLight = new AmbientLight(0xffffff, 0.1);
+    const hemiLight = new HemisphereLight(0xffffff, 0x444444, 0.7);
     hemiLight.position.set(0, 20, 0);
 
     this.Scene?.add(ambientLight);
@@ -103,7 +103,6 @@ class ThreeController extends Component {
       window.innerWidth,
       window.innerHeight
     ).divideScalar(2);
-
     this.Composer.addPass(
       new RenderPixelatedPass(renderResolution, this.Scene, this.Camera)
     );

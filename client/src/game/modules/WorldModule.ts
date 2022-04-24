@@ -15,8 +15,8 @@ class WorldModule extends Module {
     const threeController = new ThreeController(this._root);
     entity.AddComponent(threeController);
 
-    const loader = new GLTFLoader().setPath("assets/test/");
-    loader.load("scene.gltf", (gltf) => {
+    const loader = new GLTFLoader().setPath("assets/blender_test/");
+    loader.load("scene.glb", (gltf) => {
       console.log(gltf);
       threeController.Scene?.add(gltf.scene);
       console.log(threeController.Scene);
