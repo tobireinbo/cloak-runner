@@ -6,14 +6,19 @@ const useInputs = () => {
   useEffect(() => {
     document.addEventListener("keydown", onKeyDown);
     document.addEventListener("keyup", onKeyUp);
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("keyup", onKeyUp);
+    };
   }, []);
 
   const onKeyDown = (event: KeyboardEvent) => {
-    _setKeys((prev) => ({ ...prev, [event.key]: true }));
+    _setKeys((prev) => ({ ...prev, [event.code]: true }));
   };
 
   const onKeyUp = (event: KeyboardEvent) => {
-    _setKeys((prev) => ({ ...prev, [event.key]: false }));
+    _setKeys((prev) => ({ ...prev, [event.code]: false }));
   };
 
   return { keys };

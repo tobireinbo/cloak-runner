@@ -76,52 +76,52 @@ class InputController extends Component {
   };
 
   private _handleKeyDown = (event: KeyboardEvent) => {
-    switch (event.key) {
-      case "w":
+    switch (event.code) {
+      case "KeyW":
         this.Keys.forward = 1;
         break;
-      case "a":
+      case "KeyA":
         this.Keys.left = 1;
         break;
-      case "s":
+      case "KeyS":
         this.Keys.back = 1;
         break;
-      case "d":
+      case "KeyD":
         this.Keys.right = 1;
         break;
-      case " ":
+      case "Space":
         this.Keys.jump = 1;
         break;
       case "Escape":
         this.Keys.pause = 1;
         break;
-      case "Shift":
+      case "ShiftLeft":
         this.Keys.shift = 1;
         break;
     }
   };
 
   private _handleKeyUp = (event: KeyboardEvent) => {
-    switch (event.key) {
-      case "w":
+    switch (event.code) {
+      case "KeyW":
         this.Keys.forward = 0;
         break;
-      case "a":
+      case "KeyA":
         this.Keys.left = 0;
         break;
-      case "s":
+      case "KeyS":
         this.Keys.back = 0;
         break;
-      case "d":
+      case "KeyD":
         this.Keys.right = 0;
         break;
-      case " ":
+      case "Space":
         this.Keys.jump = 0;
         break;
       case "Escape":
         this.Keys.pause = 0;
         break;
-      case "Shift":
+      case "ShiftLeft":
         this.Keys.shift = 0;
         break;
     }

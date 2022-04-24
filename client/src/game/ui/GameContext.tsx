@@ -59,7 +59,6 @@ export const GameProvider: React.FC = () => {
   }, [state]);
 
   useEffect(() => {
-    console.log(keys);
     if (keys["Escape"]) {
       setState(GameStates.MENU);
     }
